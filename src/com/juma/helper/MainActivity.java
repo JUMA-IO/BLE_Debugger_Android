@@ -211,7 +211,7 @@ public class MainActivity extends Activity implements OnClickListener, OnLongCli
 						}
 						vStateLine.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.red));
 						gvAdapter.getItem(R.string.scan).setEnabled(true);
-						keyIds[10] = R.string.disconnect;
+						keyIds[10] = R.string.connect;
 
 						gvAdapter.notifyDataSetChanged();
 
