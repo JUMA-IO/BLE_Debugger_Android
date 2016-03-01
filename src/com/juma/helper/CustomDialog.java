@@ -258,18 +258,30 @@ public class CustomDialog extends Dialog implements android.view.View.OnClickLis
 	private void addDeviceInfo(String name, String uuid, int rssi){
 
 		if(deviceInfo != null && lvDeviceAdapter != null){
+			boolean isContain = false;
 			HashMap<String , Object> map = new HashMap<String, Object>();
 			map.put(MainActivity.NAME_STR, name);
 			map.put(MainActivity.UUID_STR, uuid);
 			map.put(MainActivity.RSSI_STR, rssi);
 
-			deviceInfo.add(map);
+			for (int i = 0; i < deviceInfo.size(); i++) {
+				if(deviceInfo.get(i).get(MainActivity.UUID_STR).equals(uuid)){
+					deviceInfo.remove(i);
+					deviceInfo.add(i, map);
+					isContain = true;
+				}
+				if(isContain)
+					break;
+			}
+
+			if(!isContain){
+				deviceInfo.add(map);
+			}
 
 			lvDeviceAdapter.notifyDataSetChanged();
-
 		}
-
 	}
+	
 
 	@SuppressLint("UseValueOf")
 	public static final byte[] hexToByte(String hex)throws IllegalArgumentException {
