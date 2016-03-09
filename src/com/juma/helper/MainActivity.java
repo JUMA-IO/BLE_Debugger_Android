@@ -67,7 +67,9 @@ public class MainActivity extends Activity implements OnClickListener, OnLongCli
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		
+		System.out.println(" onCreate ");
+		
 		messages = new HashMap<Integer, byte[]>();
 
 		initView();
@@ -96,6 +98,16 @@ public class MainActivity extends Activity implements OnClickListener, OnLongCli
 		gvKeyboard.setAdapter(gvAdapter);
 
 	}
+	
+	protected void onDestroy() {
+		
+		super.onDestroy();
+		
+		if(jumaDevice != null && jumaDevice.isConnected())
+			jumaDevice.disconnect();
+		
+		
+	};
 
 	private ScanCallback scanCallback = new ScanCallback() {
 
@@ -227,7 +239,7 @@ public class MainActivity extends Activity implements OnClickListener, OnLongCli
 				});
 			}
 		};
-		
+		 
 		@Override
 		public void onReceive(final byte type, final byte[] message) {
 			runOnUiThread(new Runnable() {
@@ -493,22 +505,6 @@ public class MainActivity extends Activity implements OnClickListener, OnLongCli
 		((InputMethodManager)activity.getApplication().getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(activity.getCurrentFocus()
 				.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 	}
-
-	boolean isFrist = true;
-
-	@Override
-	protected void onStart() {
-
-		super.onStart();
-
-	}
-
-	@Override
-	protected void onStop() {
-		// TODO Auto-generated method stub
-		super.onStop();
-	}
-
 
 	private void sendBroadcast(Context context, Intent intent){
 		LocalBroadcastManager.getInstance(context).sendBroadcast(intent);

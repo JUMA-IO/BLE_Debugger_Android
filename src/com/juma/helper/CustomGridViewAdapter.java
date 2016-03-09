@@ -71,7 +71,7 @@ public class CustomGridViewAdapter extends BaseAdapter{
 		}else {
 			btnKey = (Button) convertView;
 		}
-
+		
 		btnKey.setText(keyIds[position]);
 
 		return btnKey;
